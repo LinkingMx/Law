@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Filament\Resources\DocumentResource\Pages;
+
+use App\Filament\Resources\DocumentResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
+
+class ListDocuments extends ListRecords
+{
+    protected static string $resource = DocumentResource::class;
+    
+    protected static ?string $title = 'Documentos Legales';
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make()
+                ->label('Nuevo Documento')
+                ->icon('heroicon-o-plus'),
+        ];
+    }
+}

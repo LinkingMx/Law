@@ -1,0 +1,271 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        var(--font-family, 'Nunito'), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    /* Dynamic font family from Filament settings */
+    --font-family: 'Nunito';
+    
+    /* Light mode - Exact Filament admin panel colors */
+    --background: oklch(96.5% 0.002 240); /* Fondo exacto RGB 246,246,246 */
+    --foreground: oklch(25% 0.01 30); /* Texto oscuro con tinte cálido */
+    --card: oklch(100% 0.004 45); /* Cards con tinte cálido muy sutil */
+    --card-foreground: oklch(25% 0.01 30);
+    --popover: oklch(100% 0.004 45);
+    --popover-foreground: oklch(25% 0.01 30);
+    
+    /* Primary color - Exact RGB 172,134,74 from admin panel */
+    --primary: oklch(58% 0.08 65); /* RGB 172,134,74 - Color exacto de botones y enlaces activos */
+    --primary-foreground: oklch(98% 0 0);
+    
+    /* Subtle grays - Exact Filament admin panel style */
+    --secondary: oklch(94% 0.008 45); /* Gris cálido como admin panel */
+    --secondary-foreground: oklch(25% 0.01 30);
+    --muted: oklch(95% 0.008 45); /* Fondo muted con tinte cálido */
+    --muted-foreground: oklch(55% 0.01 30); /* Texto medium gray con tinte cálido */
+    --accent: oklch(94% 0.008 45);
+    --accent-foreground: oklch(25% 0.01 30);
+    
+    /* Semantic colors - Filament style */
+    --destructive: oklch(62% 0.25 28); /* Filament red */
+    --destructive-foreground: oklch(98% 0 0);
+    --success: oklch(64% 0.15 158); /* Filament green */
+    --success-foreground: oklch(98% 0 0);
+    --warning: oklch(64% 0.15 56); /* Filament amber */
+    --warning-foreground: oklch(98% 0 0);
+    --info: oklch(60% 0.15 252); /* Filament blue */
+    --info-foreground: oklch(98% 0 0);
+    
+    /* Borders and inputs - Exact Filament admin panel style */
+    --border: oklch(90% 0.008 45); /* Bordes sutiles con tinte cálido como admin */
+    --input: oklch(100% 0.004 45); /* Input background con tinte cálido muy sutil */
+    --ring: oklch(58% 0.08 65); /* Focus ring RGB 172,134,74 matching primary */
+    
+    /* Chart colors */
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    
+    --radius: 0.5rem; /* Slightly less rounded than before */
+    
+    /* Sidebar - Exact Filament admin panel style */
+    --sidebar: oklch(96.5% 0.002 240); /* Fondo sidebar exacto RGB 246,246,246 */
+    --sidebar-foreground: oklch(40% 0.015 35); /* Texto gris oscuro con tinte café */
+    --sidebar-primary: oklch(58% 0.08 65); /* RGB 172,134,74 - Enlaces activos sidebar */
+    --sidebar-primary-foreground: oklch(98% 0 0);
+    --sidebar-accent: oklch(96% 0.008 45); /* Hover sutil con tinte cálido */
+    --sidebar-accent-foreground: oklch(25% 0.01 30);
+    --sidebar-border: oklch(88% 0.008 45); /* Border más definido con tinte cálido */
+    --sidebar-ring: oklch(58% 0.08 65); /* RGB 172,134,74 matching primary */
+}
+
+.dark {
+    /* Dark mode - Exact Filament admin panel colors from image */
+    --background: oklch(12% 0.005 240); /* Fondo principal gris oscuro como en imagen */
+    --foreground: oklch(92% 0.005 60); /* Texto claro con tinte cálido sutil */
+    --card: oklch(15% 0.008 240); /* Cards más claros que el fondo principal */
+    --card-foreground: oklch(92% 0.005 60);
+    --popover: oklch(15% 0.008 240);
+    --popover-foreground: oklch(92% 0.005 60);
+    
+    /* Primary color - Exact amber from Filament dark mode */
+    --primary: oklch(75% 0.12 65); /* Color dorado/amber más brillante para dark mode */
+    --primary-foreground: oklch(15% 0 0);
+    
+    /* Dark mode grays - Exact Filament style */
+    --secondary: oklch(18% 0.008 240); /* Gris más claro para elementos secundarios */
+    --secondary-foreground: oklch(92% 0.005 60);
+    --muted: oklch(18% 0.008 240); /* Fondo muted más claro */
+    --muted-foreground: oklch(70% 0.008 60); /* Texto muted más claro */
+    --accent: oklch(18% 0.008 240);
+    --accent-foreground: oklch(92% 0.005 60);
+    
+    /* Semantic colors - Exact Filament dark mode colors */
+    --destructive: oklch(65% 0.22 28); /* Rojo Filament dark */
+    --destructive-foreground: oklch(95% 0 0);
+    --success: oklch(65% 0.18 158); /* Verde Filament dark */
+    --success-foreground: oklch(95% 0 0);
+    --warning: oklch(75% 0.12 65); /* Amber Filament dark */
+    --warning-foreground: oklch(15% 0 0);
+    --info: oklch(65% 0.18 252); /* Azul Filament dark */
+    --info-foreground: oklch(95% 0 0);
+    
+    /* Dark borders and inputs - Exact Filament style */
+    --border: oklch(22% 0.008 240); /* Bordes más visibles en dark */
+    --input: oklch(18% 0.008 240); /* Input background igual que secondary */
+    --ring: oklch(75% 0.12 65); /* Focus ring amber matching primary */
+    
+    /* Chart colors - Dark mode optimized */
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    
+    /* Sidebar - Exact Filament dark mode style from image */
+    --sidebar: oklch(12% 0.005 240); /* Fondo sidebar exacto del admin panel */
+    --sidebar-foreground: oklch(75% 0.008 60); /* Texto gris medio con tinte cálido */
+    --sidebar-primary: oklch(75% 0.12 65); /* Enlaces activos amber brillante */
+    --sidebar-primary-foreground: oklch(15% 0 0);
+    --sidebar-accent: oklch(18% 0.008 240); /* Hover sutil */
+    --sidebar-accent-foreground: oklch(92% 0.005 60);
+    --sidebar-border: oklch(22% 0.008 240); /* Border más visible */
+    --sidebar-ring: oklch(75% 0.12 65);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: var(--font-family, 'Nunito'), ui-sans-serif, system-ui;
+    }
+}
+
+@layer components {
+    /* Filament-style status badges - more refined */
+    .badge-success {
+        @apply bg-success/10 text-success border border-success/30 font-medium;
+    }
+    
+    .badge-warning {
+        @apply bg-warning/10 text-warning border border-warning/30 font-medium;
+    }
+    
+    .badge-error {
+        @apply bg-destructive/10 text-destructive border border-destructive/30 font-medium;
+    }
+    
+    .badge-info {
+        @apply bg-info/10 text-info border border-info/30 font-medium;
+    }
+    
+    /* Filament-style card variants - subtle backgrounds */
+    .card-success {
+        @apply bg-success/[0.02] border-success/15 shadow-sm;
+    }
+    
+    .card-warning {
+        @apply bg-warning/[0.02] border-warning/15 shadow-sm;
+    }
+    
+    .card-error {
+        @apply bg-destructive/[0.02] border-destructive/15 shadow-sm;
+    }
+    
+    .card-info {
+        @apply bg-info/[0.02] border-info/15 shadow-sm;
+    }
+    
+    /* Filament-style stat cards - exact Filament appearance */
+    .stat-card {
+        @apply bg-card border border-border rounded-lg shadow-sm hover:shadow transition-all duration-200 hover:border-border/60;
+    }
+    
+    .stat-card-success {
+        @apply bg-card border border-success/15 bg-success/[0.02] hover:bg-success/[0.03] hover:border-success/25 rounded-lg shadow-sm hover:shadow transition-all duration-200;
+    }
+    
+    .stat-card-warning {
+        @apply bg-card border border-warning/15 bg-warning/[0.02] hover:bg-warning/[0.03] hover:border-warning/25 rounded-lg shadow-sm hover:shadow transition-all duration-200;
+    }
+    
+    .stat-card-error {
+        @apply bg-card border border-destructive/15 bg-destructive/[0.02] hover:bg-destructive/[0.03] hover:border-destructive/25 rounded-lg shadow-sm hover:shadow transition-all duration-200;
+    }
+    
+    .stat-card-info {
+        @apply bg-card border border-info/15 bg-info/[0.02] hover:bg-info/[0.03] hover:border-info/25 rounded-lg shadow-sm hover:shadow transition-all duration-200;
+    }
+    
+    /* Filament-style icon backgrounds */
+    .icon-bg-success {
+        @apply bg-success/10 text-success p-2 rounded-lg;
+    }
+    
+    .icon-bg-warning {
+        @apply bg-warning/10 text-warning p-2 rounded-lg;
+    }
+    
+    .icon-bg-error {
+        @apply bg-destructive/10 text-destructive p-2 rounded-lg;
+    }
+    
+    .icon-bg-info {
+        @apply bg-info/10 text-info p-2 rounded-lg;
+    }
+    
+    .icon-bg-primary {
+        @apply bg-primary/10 text-primary p-2 rounded-lg;
+    }
+}
