@@ -27,25 +27,51 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        // Load settings
-        $generalSettings = SettingsHelper::general();
-        $appearanceSettings = SettingsHelper::appearance();
-        
-        // Note: Localization settings are now applied globally in AppServiceProvider
+        // Evita acceso a settings si la tabla no existe o si es comando de migración
+        $generalSettings = null;
+        $appearanceSettings = null;
+        $canLoadSettings = true;
+        try {
+            // No cargar settings si es comando artisan migrate, db:*, etc.
+            if (app()->runningInConsole()) {
+                $artisanCommands = ['migrate', 'db:', 'queue:', 'seed', 'optimize', 'cache:', 'config:', 'event:', 'schedule:', 'test'];
+                $args = implode(' ', $_SERVER['argv'] ?? []);
+                foreach ($artisanCommands as $cmd) {
+                    if (str_contains($args, $cmd)) {
+                        $canLoadSettings = false;
+                        break;
+                    }
+                }
+            }
+            // Verifica si la tabla settings existe
+            if ($canLoadSettings && \Schema::hasTable('settings')) {
+                $generalSettings = SettingsHelper::general();
+                $appearanceSettings = SettingsHelper::appearance();
+            }
+        } catch (\Throwable $e) {
+            $canLoadSettings = false;
+        }
 
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->brandName($generalSettings->app_name ?? 'SaaS Helpdesk')
-            ->brandLogo($generalSettings->app_logo ? asset('storage/' . $generalSettings->app_logo) : null)
+            ->brandLogo($generalSettings && $generalSettings->app_logo ? asset('storage/' . $generalSettings->app_logo) : null)
             ->brandLogoHeight('2rem')
-            ->darkModeBrandLogo($appearanceSettings->dark_mode_logo ? asset('storage/' . $appearanceSettings->dark_mode_logo) : null)
+            ->darkModeBrandLogo($appearanceSettings && $appearanceSettings->dark_mode_logo ? asset('storage/' . $appearanceSettings->dark_mode_logo) : null)
             ->login()
             ->registration()
             ->passwordReset()
             ->emailVerification()
-            ->colors(SettingsHelper::getFilamentColors())
+            ->colors($appearanceSettings ? SettingsHelper::getFilamentColors() : [
+                'primary' => '#f59e0b',
+                'danger' => '#ef4444',
+                'gray' => '#71717a',
+                'info' => '#3b82f6',
+                'success' => '#10b981',
+                'warning' => '#f59e0b',
+            ])
             ->font($appearanceSettings->font_family ?? 'Inter')
             ->navigationGroups([
                 'Documentación Legal',
